@@ -4,46 +4,38 @@ function getComputerChoice() {
     switch (randomInt){
         case 0:
             return "rock";
-            break;
         case 1:
-            return "paper";
-            break;
+            return "paper";          
         case 2:
-            return "scissor";
-            break;
+            return "scissors";
     }
 }
 
 function getHumanChoice(){
-    let userInput = prompt("Rock, Paper or Scissor");
+    let userInput = prompt("Rock, Paper or Scissors");
     let userInputLowerCase = userInput.toLowerCase();
     switch (userInputLowerCase){
         case ("rock"):
             return "rock";
-            break;
         case ("paper"):
             return "paper";
-            break;
         case ("scissor"):
-            return "scissor";
-            break;
+            return "scissors";
     }
 }
 
+let humanScore = 0;
+let computerScore = 0;
 
 function playGame(){
-
-    let humanScore = 0;
-    let computerScore = 0;
-
     function playRound(humanChoice, computerChoice){
         humanChoice = humanChoice.toLowerCase();
-    
+        
         if (humanChoice === computerChoice) {
-            console.log("It's tie!");
-        }else if(humanChoice === "rock" && computerChoice === "scissor" ||
+            console.log("It's tie! Both: " + humanChoice);
+        }else if(humanChoice === "rock" && computerChoice === "scissors" ||
             humanChoice ==="paper" && computerChoice === "rock" ||
-            humanChoice === "scissor" && computerChoice === "paper"
+            humanChoice === "scissors" && computerChoice === "paper"
         ){
             humanScore ++;
             console.log("you win " + humanChoice + " beats " + computerChoice);
@@ -56,11 +48,52 @@ function playGame(){
             console.log("computer score: " + computerScore);
         }
     }
-    
     const humanSelection = getHumanChoice();
     const computerSelection = getComputerChoice(); 
-
     playRound(humanSelection, computerSelection);
+    /*
+    function callFiveTimes(){
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice(); 
+        playRound(humanSelection, computerSelection);
+
+        const humanSelection2 = getHumanChoice();
+        const computerSelection2 = getComputerChoice();
+        playRound(humanSelection2, computerSelection2);
+
+        const humanSelection3 = getHumanChoice();
+        const computerSelection3 = getComputerChoice();
+        playRound(humanSelection3, computerSelection3);
+
+        const humanSelection4 = getHumanChoice();
+        const computerSelection4 = getComputerChoice();
+        playRound(humanSelection4, computerSelection4);
+
+        const humanSelection5 = getHumanChoice();
+        const computerSelection5 = getComputerChoice();
+        playRound(humanSelection5, computerSelection5);
+    }
+    callFiveTimes();
+    */
+
+    /* 
+    function gloop(){
+        for (let i = 0; i < 5; i++){
+            const humanSelect = getHumanChoice();
+            const compSelect = getComputerChoice();
+            playRound(humanSelect, compSelect);
+        }
+    }
+
+    gloop();
+    */
 }
 
-playGame();
+function startGame(){
+    playGame();
+    playGame();
+    playGame();
+    playGame();
+    playGame();
+}
+startGame();
