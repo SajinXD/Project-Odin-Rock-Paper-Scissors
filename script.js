@@ -1,3 +1,6 @@
+let humanScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
     let randomInt = Math.floor(Math.random() * 3);
     
@@ -11,89 +14,85 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice(){
-    let userInput = prompt("Rock, Paper or Scissors");
-    let userInputLowerCase = userInput.toLowerCase();
-    switch (userInputLowerCase){
-        case ("rock"):
-            return "rock";
-        case ("paper"):
-            return "paper";
-        case ("scissor"):
-            return "scissors";
-    }
+function updateScore(){
+    const scoreBoard = document.querySelector('.score');
+    scoreBoard.textContent = `Your Score: ${humanScore} | Computer Score : ${computerScore}`;
 }
 
-let humanScore = 0;
-let computerScore = 0;
-
-function playGame(){
-    function playRound(humanChoice, computerChoice){
-        humanChoice = humanChoice.toLowerCase();
-        
-        if (humanChoice === computerChoice) {
-            console.log("It's tie! Both: " + humanChoice);
-        }else if(humanChoice === "rock" && computerChoice === "scissors" ||
-            humanChoice ==="paper" && computerChoice === "rock" ||
-            humanChoice === "scissors" && computerChoice === "paper"
-        ){
-            humanScore ++;
-            console.log("you win " + humanChoice + " beats " + computerChoice);
-            console.log("your score: " + humanScore);
-            console.log("computer score: " + computerScore);
-        }else{
-            computerScore ++;
-            console.log("you lose " + computerChoice + " beats " + humanChoice);
-            console.log("your score: " + humanScore);
-            console.log("computer score: " + computerScore);
-        }
-    }
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice(); 
-    playRound(humanSelection, computerSelection);
-    /*
-    function callFiveTimes(){
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice(); 
-        playRound(humanSelection, computerSelection);
-
-        const humanSelection2 = getHumanChoice();
-        const computerSelection2 = getComputerChoice();
-        playRound(humanSelection2, computerSelection2);
-
-        const humanSelection3 = getHumanChoice();
-        const computerSelection3 = getComputerChoice();
-        playRound(humanSelection3, computerSelection3);
-
-        const humanSelection4 = getHumanChoice();
-        const computerSelection4 = getComputerChoice();
-        playRound(humanSelection4, computerSelection4);
-
-        const humanSelection5 = getHumanChoice();
-        const computerSelection5 = getComputerChoice();
-        playRound(humanSelection5, computerSelection5);
-    }
-    callFiveTimes();
-    */
-
-    /* 
-    function gloop(){
-        for (let i = 0; i < 5; i++){
-            const humanSelect = getHumanChoice();
-            const compSelect = getComputerChoice();
-            playRound(humanSelect, compSelect);
-        }
-    }
-
-    gloop();
-    */
+function displayResult(message) {
+    const resultBoard = document.querySelector('.result');
+    resultBoard.textContent = message;
 }
 
-function startGame(){
-    playGame();
-    playGame();
-    playGame();
-    playGame();
-    playGame();
+function reset(){
+    humanScore = 0;
+    computerScore = 0;
+    updateScore();
+    displayResult("Click to start the game!");
+    document.querySelector('#winner').textContent ="";
+    document.querySelector('.winner').className= "";
+    hideResetBtn;
 }
-startGame();
+
+function showResetBtn(){
+    document.querySelector('#reset').style.display = 'inline-block';
+}
+
+function hideResetBtn(){
+    document.querySelector('#reset').style.display = 'none';
+}
+
+function checkWinner(){
+    if (humanScore === 5){
+        const winnerBox = document.querySelector('#winner');
+        winnerBox.textContent = "You Won! the game congrats";
+        winnerBox.className = 'winner';
+        showResetBtn();
+        return true;
+    }else if(computerScore === 5){
+        const winnerBox = document.querySelector('#winner');
+        winnerBox.textContent = "You Lost! Better luck next time!";
+        winnerBox.className = 'winner';
+        showResetBtn();
+        return true;
+    }
+    return false
+}
+
+function playRound(humanChoice, computerChoice){
+    humanChoice = humanChoice.toLowerCase();
+    
+    if (humanChoice === computerChoice) {
+        displayResult (`It's tie! Both: ${humanChoice}`);
+    }else if(humanChoice === "rock" && computerChoice === "scissors" ||
+        humanChoice ==="paper" && computerChoice === "rock" ||
+        humanChoice === "scissors" && computerChoice === "paper"
+    ){
+        humanScore ++;
+        displayResult(`you win ${humanChoice} beats ${computerChoice}`);
+        updateScore();
+    }else{
+        computerScore ++;
+        displayResult(`you lose ${computerChoice} beats ${humanChoice}`);
+        updateScore();
+    }
+
+    checkWinner();
+}
+
+document.querySelector('#rock').addEventListener('click', () => {
+        const computerSelection = getComputerChoice();
+        playRound('rock', computerSelection);
+});
+
+document.querySelector('#paper').addEventListener('click', ()=>{
+        const computerSelection = getComputerChoice();
+        playRound('paper', computerSelection);
+});
+
+document.querySelector('#scissors').addEventListener('click', ()=>{
+        const computerSelection = getComputerChoice();
+        playRound('scissors', computerSelection);
+});
+
+document.querySelector('#reset').addEventListener('click', reset);
