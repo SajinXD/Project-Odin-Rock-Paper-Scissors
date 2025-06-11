@@ -80,19 +80,38 @@ function playRound(humanChoice, computerChoice){
     checkWinner();
 }
 
-document.querySelector('#rock').addEventListener('click', () => {
-        const computerSelection = getComputerChoice();
-        playRound('rock', computerSelection);
-});
+document.querySelector('#btn').addEventListener('click',(e)=>{
+    let target =e.target;
+    const computerSelection = getComputerChoice();
 
-document.querySelector('#paper').addEventListener('click', ()=>{
-        const computerSelection = getComputerChoice();
-        playRound('paper', computerSelection);
-});
+    switch (target.id) {
+        case 'rock':
+            playRound('rock', computerSelection);
+            break;
+        case 'paper':
+            playRound('paper', computerSelection);
+            break;
+        case 'scissors':
+            playRound('scissors', computerSelection);
+            break;
+        default:
+            break;
+    }
+})
 
-document.querySelector('#scissors').addEventListener('click', ()=>{
-        const computerSelection = getComputerChoice();
-        playRound('scissors', computerSelection);
-});
+// document.querySelector('#rock').addEventListener('click', () => {
+//         const computerSelection = getComputerChoice();
+//         playRound('rock', computerSelection);
+// });
+
+// document.querySelector('#paper').addEventListener('click', ()=>{
+//         const computerSelection = getComputerChoice();
+//         playRound('paper', computerSelection);
+// });
+
+// document.querySelector('#scissors').addEventListener('click', ()=>{
+//         const computerSelection = getComputerChoice();
+//         playRound('scissors', computerSelection);
+// });
 
 document.querySelector('#reset').addEventListener('click', reset);
