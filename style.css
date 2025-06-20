@@ -5,6 +5,9 @@ body{
     background-color: #e8e3e3;
     margin: 0 auto;
     max-width: 600 px;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 .container{
@@ -50,6 +53,16 @@ button{
 }
 
 .winner{
+    margin: 20px 50px;
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid #06ad06;
+    background-color: #179f30;
+    color: #ffffff;
+    font-size: xx-large;
+}
+
+.loser{
     margin: 20px 50px;
     padding: 20px;
     border-radius: 15px;

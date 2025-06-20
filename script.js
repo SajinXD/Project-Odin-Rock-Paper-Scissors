@@ -31,7 +31,8 @@ function reset(){
     displayResult("Click to start the game!");
     document.querySelector('#winner').textContent ="";
     document.querySelector('.winner').className= "";
-    hideResetBtn;
+    hideResetBtn();
+    enableGameBtn();    
 }
 
 function showResetBtn(){
@@ -48,12 +49,14 @@ function checkWinner(){
         winnerBox.textContent = "You Won! the game congrats";
         winnerBox.className = 'winner';
         showResetBtn();
+        disableGameBtn();
         return true;
     }else if(computerScore === 5){
         const winnerBox = document.querySelector('#winner');
         winnerBox.textContent = "You Lost! Better luck next time!";
-        winnerBox.className = 'winner';
+        winnerBox.className = 'loser';
         showResetBtn();
+        disableGameBtn();
         return true;
     }
     return false
@@ -99,19 +102,20 @@ document.querySelector('#btn').addEventListener('click',(e)=>{
     }
 })
 
-// document.querySelector('#rock').addEventListener('click', () => {
-//         const computerSelection = getComputerChoice();
-//         playRound('rock', computerSelection);
-// });
-
-// document.querySelector('#paper').addEventListener('click', ()=>{
-//         const computerSelection = getComputerChoice();
-//         playRound('paper', computerSelection);
-// });
-
-// document.querySelector('#scissors').addEventListener('click', ()=>{
-//         const computerSelection = getComputerChoice();
-//         playRound('scissors', computerSelection);
-// });
-
 document.querySelector('#reset').addEventListener('click', reset);
+
+let rockBtn = document.querySelector('#rock');
+let paperBtn = document.querySelector('#paper');
+let scissorsBtn = document.querySelector('#scissors');
+
+function disableGameBtn(){
+    rockBtn.disabled = true;
+    paperBtn.disabled = true;
+    scissorsBtn.disabled = true;
+}
+
+function enableGameBtn(){
+    rockBtn.disabled = false;
+    paperBtn.disabled = false;
+    scissorsBtn.disabled = false;
+}
